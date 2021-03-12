@@ -1,12 +1,11 @@
-from selenium import webdriver
 from pathlib import Path
 import time
-from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
 import platform
 
 mySystem = platform.system() # you can replace with Linux, Darwin,Windows
 
-#in this script geckodriver is used and the path is selected according to the OS.
+# in this script geckodriver is used and the path is selected according to the OS
 if mySystem == 'Linux':
 
     mySystem = 'clear'
@@ -29,29 +28,23 @@ driver = webdriver.Firefox(executable_path=f'{geckoFile}')
 #driver = webdriver.Chrome("/usr/local/bin/chromedriver")
 
 
-
-def login_twitter (user, pwd):
-
-    username = user
-    password = pwd
-
-    driver.get('https://twitter.com/login') # instagram url
-    time.sleep(2)
-
-    userelement = driver.find_element_by_css_selector("input[name='session[username_or_email]']") # 'username' input element
-    userelement.clear()
-    userelement.send_keys(username) # user insertion in 'user' element
-
-    time.sleep(1)
-    pwdelement = driver.find_element_by_css_selector("input[name='session[password]']") # 'password 'input element
-    pwdelement.clear()
-    pwdelement.send_keys(password) # password insertion in 'password' element
-    pwdelement.send_keys(Keys.RETURN) # log in to page
+def login(email, password):
+    driver.get("http://facebook.com")
+    driver.maximize_window()
+    driver.find_element_by_name("email").send_keys(email)
+    driver.find_element_by_name("pass").send_keys(password)
+    driver.find_element_by_id('loginbutton').click()
     time.sleep(2)
     print('You Are Logged!!')
 
-email = 'user'
-pwd = 'pass'
 
 
-login_twitter(email, pwd)
+EMAIL = 'user'
+PASSWORD = 'pass'
+
+login(EMAIL,PASSWORD)
+
+
+
+
+

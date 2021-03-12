@@ -1,12 +1,13 @@
-from selenium import webdriver
-from pathlib import Path
 import time
+from pathlib import Path
+from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import platform
 
 mySystem = platform.system() # you can replace with Linux, Darwin,Windows
 
 #in this script geckodriver is used and the path is selected according to the OS.
+
 if mySystem == 'Linux':
 
     mySystem = 'clear'
@@ -29,29 +30,36 @@ driver = webdriver.Firefox(executable_path=f'{geckoFile}')
 #driver = webdriver.Chrome("/usr/local/bin/chromedriver")
 
 
-
-def login_twitter (user, pwd):
+# function to access the login page and log in
+def botlogin (user, pwd):
 
     username = user
     password = pwd
 
-    driver.get('https://twitter.com/login') # instagram url
+    driver.get('https://www.instagram.com/') # instagram url
     time.sleep(2)
 
-    userelement = driver.find_element_by_css_selector("input[name='session[username_or_email]']") # 'username' input element
+    userelement = driver.find_element_by_xpath('//input[@name="username"]') # 'username' input element
     userelement.clear()
     userelement.send_keys(username) # user insertion in 'user' element
 
-    time.sleep(1)
-    pwdelement = driver.find_element_by_css_selector("input[name='session[password]']") # 'password 'input element
+    pwdelement = driver.find_element_by_xpath('//input[@name="password"]') # 'password 'input element
     pwdelement.clear()
     pwdelement.send_keys(password) # password insertion in 'password' element
     pwdelement.send_keys(Keys.RETURN) # log in to page
     time.sleep(2)
-    print('You Are Logged!!')
 
-email = 'user'
+    try:
+        driver.find_element_by_xpath("//button[contains(text(),'Accetta')]").click() #change in Accept or Acepta or Accepte
+    except:
+        pass
+
+
+#legge username e pwd
+user = 'user'
 pwd = 'pass'
 
 
-login_twitter(email, pwd)
+botlogin(user,pwd)
+
+
